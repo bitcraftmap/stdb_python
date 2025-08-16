@@ -18,9 +18,6 @@ import json
 
 '''
 
-chunk_data_file = 'data/terrain_chunk_state/region_3/terrain_chunk_state.json'
-chunk_data_file_new = 'data/terrain_chunk_state/region_3/terrain_chunk_state_new.json'
-
 remove_keys = [
     'dimension',
     'elevations',
@@ -39,12 +36,33 @@ def remove_keys_from_dict(data, keys_to_remove):
     else:
         return data
 
-with open(chunk_data_file, 'r') as file:
-    data = json.load(file)
+def slash_data(in_file, out_file):
+    with open(in_file, 'r') as file:
+        data = json.load(file)
+    filtered_json = [obj for obj in data if obj.get('dimension') == 1]
+    new_json = remove_keys_from_dict(filtered_json, remove_keys)
+    with open(out_file, 'w') as file:
+        json.dump(new_json, file, separators=(',', ':'))
 
-filtered_json = [obj for obj in data if obj.get('dimension') == 1]
-new_json = remove_keys_from_dict(filtered_json, remove_keys)
-print(str(len(new_json)) + ' chunks in the array')
+region1 = 'data/terrain_chunk_state/region_1/'
+region2 = 'data/terrain_chunk_state/region_2/'
+region3 = 'data/terrain_chunk_state/region_3/'
+region4 = 'data/terrain_chunk_state/region_4/'
+region5 = 'data/terrain_chunk_state/region_5/'
+region6 = 'data/terrain_chunk_state/region_6/'
+region7 = 'data/terrain_chunk_state/region_7/'
+region8 = 'data/terrain_chunk_state/region_8/'
+region9 = 'data/terrain_chunk_state/region_9/'
 
-with open(chunk_data_file_new, 'w') as file:
-    json.dump(new_json, file, separators=(',', ':'))
+in_file_name = 'terrain_chunk_state.json'
+out_file_name = 'terrain_chunk_state_new.json'
+
+slash_data(region1 + in_file_name, region1 + out_file_name)
+slash_data(region2 + in_file_name, region2 + out_file_name)
+slash_data(region3 + in_file_name, region3 + out_file_name)
+slash_data(region4 + in_file_name, region4 + out_file_name)
+slash_data(region5 + in_file_name, region5 + out_file_name)
+slash_data(region6 + in_file_name, region6 + out_file_name)
+slash_data(region7 + in_file_name, region7 + out_file_name)
+slash_data(region8 + in_file_name, region8 + out_file_name)
+slash_data(region9 + in_file_name, region9 + out_file_name)
