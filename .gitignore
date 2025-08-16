@@ -1,2 +1,5 @@
 .env
 files_too_big
+data/terrain_chunk_state/
+assets/
+terrain_chunk_state*
